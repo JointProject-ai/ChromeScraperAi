@@ -1,6 +1,10 @@
 # Ignore virtual environment folders
 .venv/
+env/
 venv/
+
+backend/.env
+frontend/.env
 
 # Ignore compiled python files
 *.pyc
@@ -25,4 +29,4 @@ __pycache__/
 # MacOS
 .DS_Store
 
-.env
+.env*
