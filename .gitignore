@@ -1,0 +1,28 @@
+# Ignore virtual environment folders
+.venv/
+venv/
+
+# Ignore compiled python files
+*.pyc
+
+# Ignore the dist folder
+dist/
+
+# Ignore the build folder
+build/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables
+.env
+
+# VS Code settings
+.vscode/
+
+# MacOS
+.DS_Store
+
+.env
