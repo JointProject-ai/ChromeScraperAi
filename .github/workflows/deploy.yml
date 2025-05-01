@@ -1,0 +1,29 @@
+name: Deploy ChromeScraperAI Backend
+
+on:
+  push:
+    branches:
+      - main  # or 'Dev' if you prefer
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install flask requests beautifulsoup4 python-dotenv
+
+    - name: Run simple server (for testing)
+      run: |
+        python backend/flask_server.py
