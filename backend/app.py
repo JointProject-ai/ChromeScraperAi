@@ -4,47 +4,45 @@ from summarizer import GeminiWebSummarizer
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Allow cross-origin requests (e.g., from Chrome extension)
 
-# Endpoint 1: Summarize a URL (server fetches the webpage)
-@app.route("/summarize_url", methods=["POST"])
-def summarize_url():
+# Allow only the Chrome extension's origin
+CORS(app, origins=["chrome-extension://ighkodfiincnadmcpcaibhofnenanlom"])
+
+# Endpoint: Summarize raw text (sent by frontend)
+@app.route("/summarize", methods=["POST"])
+def summarize():
     """
-    Accepts a JSON body like: { "url": "https://example.com" }
-    Fetches the webpage, extracts content, and returns a summary.
-    """
-    try:
-        data = request.get_json()
-        url = data.get("url")
-
-        if not url:
-            return jsonify({"error": "Missing 'url' in request body"}), 400
-
-        summarizer = GeminiWebSummarizer()
-        result = summarizer.summarize_url(url)
-        return jsonify(result)
-
-    except Exception as e:
-        return jsonify({"error": "Internal server error", "details": str(e)}), 500
-
-
-# Endpoint 2: Summarize raw text (sent by frontend)
-@app.route("/summarize_text", methods=["POST"])
-def summarize_text():
-    """
-    Accepts a JSON body like: { "content": "text to summarize" }
+    Accepts a JSON body like: { "text": "text to summarize" }
     Sends it to Gemini API and returns the summary.
     """
     try:
         data = request.get_json()
-        content = data.get("content")
+        text = data.get("text")
 
-        if not content:
-            return jsonify({"error": "Missing 'content' in request body"}), 400
+        if not text:
+            return jsonify({"error": "Missing 'text' in request body"}), 400
 
         summarizer = GeminiWebSummarizer()
-        result = summarizer._summarize_text_with_gemini(content)
-        return jsonify(result)
+        result = summarizer._summarize_text_with_gemini(text)
+
+        # Extract summary from Gemini API response
+        if (
+                "candidates" in result and
+                result["candidates"] and
+                "content" in result["candidates"][0] and
+                "parts" in result["candidates"][0]["content"]
+        ):
+            summary = result["candidates"][0]["content"]["parts"][0]["text"]
+            print("Gemini API result:", result)
+            return jsonify({"summary": summary.strip()})
+
+        # Handle errors
+        elif "error" in result:
+            return jsonify(result)
+
+        else:
+            return jsonify({"error": "Unexpected Gemini API response", "details": result})
+
 
     except Exception as e:
         return jsonify({"error": "Internal server error", "details": str(e)}), 500
