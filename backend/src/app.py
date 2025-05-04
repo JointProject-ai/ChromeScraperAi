@@ -6,7 +6,9 @@ from summarizer import GeminiWebSummarizer
 app = Flask(__name__)
 
 # Allow only the Chrome extension's origin
-CORS(app, origins=["chrome-extension://lddnmlbeachmkggobobeegjpcblfmffo"]) #TODO: Update with the actual extension ID
+#CORS(app, origins=["chrome-extension://lddnmlbeachmkggobobeegjpcblfmffo"]) #TODO: Update with the actual extension ID
+
+CORS(app) 
 # Endpoint: Summarize raw text (sent by frontend)
 @app.route("/summarize", methods=["POST"])
 def summarize():
