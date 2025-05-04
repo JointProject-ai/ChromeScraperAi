@@ -4,7 +4,9 @@
   "version": "1.0",
   "permissions": ["scripting", "activeTab"],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": "img/logo-png.png"
+
   },
   "background": {
     "service_worker": "content.js"

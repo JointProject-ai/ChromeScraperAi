@@ -6,8 +6,7 @@ from summarizer import GeminiWebSummarizer
 app = Flask(__name__)
 
 # Allow only the Chrome extension's origin
-CORS(app, origins=["chrome-extension://ighkodfiincnadmcpcaibhofnenanlom"])
-
+CORS(app, origins=["chrome-extension://lddnmlbeachmkggobobeegjpcblfmffo"]) #TODO: Update with the actual extension ID
 # Endpoint: Summarize raw text (sent by frontend)
 @app.route("/summarize", methods=["POST"])
 def summarize():
@@ -18,13 +17,19 @@ def summarize():
     try:
         data = request.get_json()
         text = data.get("text")
+        question = data.get("question")
 
         if not text:
             return jsonify({"error": "Missing 'text' in request body"}), 400
 
         summarizer = GeminiWebSummarizer()
-        result = summarizer._summarize_text_with_gemini(text)
-
+        # result = summarizer._summarize_text_with_gemini(text, question)
+            
+        if question:
+            result = summarizer.ask_question_with_gemini(text, question)
+        else:
+            result = summarizer._summarize_text_with_gemini(text)
+            
         # Extract summary from Gemini API response
         if (
                 "candidates" in result and
