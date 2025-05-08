@@ -72,13 +72,18 @@ class GeminiWebSummarizer:  # Renamed class for clarity
             print(f"Error parsing HTML: {e}")
             return None
 
-    def _summarize_text_with_gemini(self, text):
+    def _summarize_text_with_gemini(self, text, question=None):
         """Sends the extracted text to Gemini API for summarization."""
         if not text:
             return {"error": "No text content provided or extracted."}
 
         # Consider adding length limits if the API has them
         # text = text[:20000] # Example limit
+        
+        prompt = f"Summarize the following web page content:\n\n{text}"
+        if question:
+            prompt += f"\n\nThen, answer this question based on the content:\n{question}"
+
 
         payload = {
             "contents": [
@@ -113,7 +118,39 @@ class GeminiWebSummarizer:  # Renamed class for clarity
         except Exception as e:  # Catch other potential errors
             print(f"An unexpected error occurred during API call: {e}")
             return {"error": "An unexpected error occurred", "details": str(e)}
-
+        
+        
+    # def ask_question_with_gemini(self, text, question):
+    def ask_question_with_gemini(self, text, question):
+        if not text or not question:
+            return {"error": "Text and question must be provided."}
+        prompt = f"Answer the following question based on the content:\n\n{text}\n\nQuestion: {question}"
+        payload = {
+            "contents": [
+                {
+                    "parts": [{"text": prompt}]
+                }
+            ]
+        }
+        headers = {"Content-Type": "application/json"}
+        try:
+            response = self.session.post(self.api_url, headers=headers, json=payload, timeout=30)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"Error calling Gemini API: {e}")
+            error_detail = str(e)
+            if hasattr(e, 'response') and e.response is not None:
+                try:
+                    error_detail = e.response.json()
+                except requests.exceptions.JSONDecodeError:
+                    error_detail = e.response.text
+            return {"error": "Failed to communicate with Gemini API", "details": error_detail}
+        except Exception as e:
+            print(f"An unexpected error occurred during API call: {e}")
+            return {"error": "An unexpected error occurred", "details": str(e)}
+        
+        
     def summarize_url(self, url):
         """
         Fetches content from a URL, extracts text, and returns the summary from Gemini.

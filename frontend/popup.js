@@ -1,3 +1,4 @@
+// popup.js
 document.addEventListener("DOMContentLoaded", () => {
   const summaryDiv = document.getElementById("summary");
   const summarizeButton = document.getElementById("summarizeButton");
@@ -53,4 +54,34 @@ document.addEventListener("DOMContentLoaded", () => {
       summaryDiv.textContent = `Error: ${error.message}`;
     }
   });
+
+
+  // Custom question button
+  document.getElementById("customQuestionButton").addEventListener("click", async () => {
+    const question = document.getElementById("customQuestionInput").value;
+  
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  
+    const result = await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: () => document.body.innerText,
+    });
+  
+    const text = result[0]?.result || "";
+  
+    fetch("http://localhost:8080/summarize", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, question }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        document.getElementById("output").innerText =
+          data.summary || data.error || "No response";
+      })
+      .catch((err) => {
+        document.getElementById("output").innerText = "Error: " + err.message;
+      });
+  });
+  
 });
