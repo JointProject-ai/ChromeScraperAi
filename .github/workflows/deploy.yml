@@ -3,8 +3,7 @@ name: Deploy ChromeScraperAI Backend
 on:
   push:
     branches:
-      - main  # or 'Dev' if you prefer
-
+      - main  # or 'Dev' 
 jobs:
   deploy:
     runs-on: ubuntu-latest
