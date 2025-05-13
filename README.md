@@ -11,6 +11,9 @@ pip install -r requirements.txt
 deactivate:
 deactivate
 
+install flask:
+pip install flask-cors
+
 Run server:
 python backend/src/app.py
 
