@@ -2,6 +2,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   const summaryDiv = document.getElementById("summary");
   const summarizeButton = document.getElementById("summarizeButton");
+  
+  const BASE_URL = location.hostname === "localhost"
+    ? "http://localhost:8080"
+    : "https://pagewise-dmb2.onrender.com";
 
   summarizeButton.addEventListener("click", async () => {
     try {
@@ -30,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Make the POST request to the backend
-      const response = await fetch("http://localhost:8080/summarize", {
+      const response = await fetch(`${BASE_URL}/summarize`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: pageText })
@@ -68,8 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   
     const text = result[0]?.result || "";
-  
-    fetch("http://localhost:8080/summarize", {
+
+    fetch(`${BASE_URL}/summarize`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text, question }),
