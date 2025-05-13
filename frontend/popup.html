@@ -2,15 +2,22 @@
 <html>
 <head>
   <title>Summarizer</title>
-  <link rel="icon" href="img/logo-png.png" type="image/png"> 
+  <link rel="icon" href="img/logo-png.png" type="image/png">
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
-      width: 300px; /* Increased width */
-      height: 250px; /* Increased height */
+      margin: 0;
+      padding: 20px;
+      width: 300px;
+      height: 550px; /* Adjusted for full content height */
+      overflow-y: auto;
+      background-color: rgba(255, 255, 255, 0.6); /* Transparent white background */
+      backdrop-filter: blur(6px); /* Frosted glass effect */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
     }
-    #summarizeButton {
+
+    #summarizeButton, #customQuestionButton {
       background-color: #4CAF50;
       color: white;
       border: none;
@@ -23,46 +30,13 @@
       border-radius: 12px;
       transition: background-color 0.2s ease, transform 0.2s ease;
     }
-    
-    #summarizeButton:hover {
+
+    #summarizeButton:hover, #customQuestionButton:hover {
       background-color: #45a049;
       transform: scale(1.05);
     }
 
-    #customQuestionButton {
-      background-color: #008CBA;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      text-align: center;
-      display: inline-block;
-      font-size: 16px;
-      margin: 8px 0;
-      cursor: pointer;
-      border-radius: 12px;
-      transition: background-color 0.2s ease, transform 0.2s ease;
-    }
-
-    #customQuestionButton:hover {
-      background-color: #007B9E;
-      transform: scale(1.05);
-    }
-
-    #summarizeButton {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      text-align: center;
-      display: inline-block;
-      font-size: 16px;
-      margin: 8px 0;
-      cursor: pointer;
-      border-radius: 12px;
-      transition: background-color 0.2s ease, transform 0.2s ease;
-    }
-    
-    #summary {
+    #summary, #output {
       margin-top: 15px;
       padding: 10px;
       border: 1px solid #ccc;
@@ -71,33 +45,29 @@
       overflow-y: auto;
     }
 
-    #output {
-      margin-top: 15px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      background-color: #f9f9f9;
-      height: 100px;
-      overflow-y: auto;
-    }
     button {
       cursor: pointer;
+    }
+
+    h1 {
+      background-color: #000;
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 img {
+      height: 70px;
     }
   </style>
 </head>
 <body>
- 
-  <h1 style="
-  background-color: #000; 
-  padding: 10px; 
-  border-radius: 8px; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center;
-">
-  <img src="img/logo-png.png" alt="Logo" style="height: 70px;">
-</h1>
 
-
+  <h1>
+    <img src="img/logo-png.png" alt="Logo">
+  </h1>
 
   <button id="summarizeButton">Summarize Page</button>
   <div id="summary">Summary will appear here...</div>
@@ -105,6 +75,7 @@
   <input type="text" id="customQuestionInput" placeholder="Ask a question..." style="width: 100%; margin-top: 10px; padding: 8px;">
   <button id="customQuestionButton">Ask Question</button>
   <div id="output" style="margin-top: 10px;">Custom Question will appear here</div>
+
   <script src="popup.js"></script>
 </body>
 </html>
