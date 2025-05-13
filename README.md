@@ -12,6 +12,6 @@ deactivate:
 deactivate
 
 Run server:
-python backend/app.py
+python backend/src/app.py
 
 
