@@ -2,6 +2,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from summarizer import GeminiWebSummarizer
 
+import traceback
+
+
 # Initialize Flask app
 app = Flask(__name__)
 
@@ -52,6 +55,7 @@ def summarize():
 
 
     except Exception as e:
+        traceback.print_exc()
         return jsonify({"error": "Internal server error", "details": str(e)}), 500
 
 
