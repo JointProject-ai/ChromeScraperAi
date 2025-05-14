@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from summarizer import GeminiWebSummarizer
+from backend.src.summarizer import GeminiWebSummarizer
 
 import traceback
 
