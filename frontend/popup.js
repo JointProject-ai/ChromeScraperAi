@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const summaryDiv = document.getElementById("summary");
   const summarizeButton = document.getElementById("summarizeButton");
   
-  const BASE_URL = "https://pagewise-dmb2.onrender.com";
+  const BASE_URL = "https://pagewise-hbie.onrender.com";
+  
 
 
   summarizeButton.addEventListener("click", async () => {
@@ -72,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   
     const text = result[0]?.result || "";
-    
+
     //"http://localhost:8080/summarize
     fetch(`${BASE_URL}/summarize`, {
       method: "POST",
