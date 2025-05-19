@@ -12,6 +12,10 @@ app = Flask(__name__)
 #CORS(app, origins=["chrome-extension://lddnmlbeachmkggobobeegjpcblfmffo"]) #TODO: Update with the actual extension ID
 
 CORS(app) 
+@app.route("/", methods=["GET"])
+def health_check():
+    return "OK", 200
+
 # Endpoint: Summarize raw text (sent by frontend)
 @app.route("/summarize", methods=["POST"])
 def summarize():
