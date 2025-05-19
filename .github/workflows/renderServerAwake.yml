@@ -1,0 +1,14 @@
+name: Keep Render Server Awake
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"  # Every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  ping-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send keep-alive ping to Render server
+        run: |
+          curl -s --retry 3 --max-time 10 https://pagewise-hbie.onrender.com/ || echo "Ping failed"
