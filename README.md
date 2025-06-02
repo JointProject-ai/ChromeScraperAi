@@ -57,3 +57,7 @@ To test the extension locally:
 ```bash
 deactivate
 ```
+
+#### 📝 useful links for reference:
+    Cron Job (To keep server alive): 
+    https://console.cron-job.org/jobs
