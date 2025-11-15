@@ -1,4 +1,4 @@
-# ChromeScraper AI – Gemini Summarizer
+# Chrome AI Summarizer
 
 **Project Process and Workflow Documentation**
 
@@ -39,7 +39,7 @@
 ## 1. Introduction
 
 ### 1.1 Project Purpose
-The **ChromeScraper AI – Gemini Summarizer** is a system designed to provide users with quick summaries of web page content. It leverages the power of Google's Gemini API for advanced text summarization, accessed via a custom backend server, and integrated into the user's browsing experience through a Chrome Extension.
+The **Chrome AI Summarizer** is a system designed to provide users with quick summaries of web page content. It leverages the power of Google's Gemini API for advanced text summarization, accessed via a custom backend server, and integrated into the user's browsing experience through a Chrome Extension.
 
 ### 1.2 Key Technologies
 *   **Backend:** Python, Flask (a lightweight WSGI web application framework)
@@ -77,7 +77,7 @@ The system consists of two main components:
     *   **Flask Application (`app.py`):** Defines API routes, handles incoming requests, and orchestrates the summarization process.
     *   **API Endpoints:** Specific URLs (e.g., `/summarize`) that the Chrome Extension calls.
     *   **Gemini API Integration:** Code responsible for authenticating with and sending requests to the Google Gemini API. This requires a secure way to store and access the API key (e.g., via environment variables).
-    *   **Content Scraping/Fetching (Potentially):** If the extension only sends a URL, the backend might need libraries (e.g., `requests`, `BeautifulSoup`) to fetch and parse the web page content. The project name "ChromeScraper AI" suggests this capability.
+    *   **Content Scraping/Fetching (Potentially):** If the extension only sends a URL, the backend might need libraries (e.g., `requests`, `BeautifulSoup`) to fetch and parse the web page content. The project name "Chrome AI Summarizer" reflects this capability.
     *   **CORS Handling:** `Flask-CORS` is used to allow cross-origin requests from the Chrome Extension (which runs on a `chrome-extension://` origin) to the backend server (e.g., `http://localhost:8081`).
 
 ### 2.3 Google Gemini API
@@ -95,7 +95,7 @@ Please see photo
 
 ### 4.1 User Interaction
 1.  The user navigates to a web page they wish to summarize.
-2.  The user clicks the ChromeScraper AI extension icon in their browser toolbar (or uses a defined shortcut).
+2.  The user clicks the Chrome AI Summarizer extension icon in their browser toolbar (or uses a defined shortcut).
 
 ### 4.2 Request to Backend
 1.  The Chrome Extension's script (background or popup) captures the URL of the active tab.
