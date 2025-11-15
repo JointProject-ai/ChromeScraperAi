@@ -1,5 +1,5 @@
 
-# 🧠 Chrome AI Summerizer Extension – Gemini api
+# 🧠 Chrome AI Summarizer Extension – Gemini API
 
 A lightweight Flask server that summarizes webpage content using Google Gemini API.
 Designed to integrate with a Chrome Extension.
