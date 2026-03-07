@@ -22,7 +22,7 @@ class GeminiWebSummarizer:  # Renamed class for clarity
             raise ValueError("GEMINI_API_KEY environment variable not found.")
 
         # Consider making the model configurable if needed
-        self.model_name = "gemini-2.5-pro"  # Using a recommended model
+        self.model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")  # Using a recommended model
         self.api_url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model_name}:generateContent?key={self.api_key}"
         self.session = requests.Session()  # Use a session for potential connection reuse
         self.session.headers.update({
